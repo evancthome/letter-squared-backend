@@ -36,4 +36,5 @@ def validate_word(word):
     })
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000) 
+    # Update to listen on all interfaces
+    app.run(host='0.0.0.0', port=8080) 

@@ -3,7 +3,8 @@ from flask_cors import CORS
 from generate import sample, render
 
 app = Flask(__name__)
-CORS(app)  # This allows cross-origin requests
+# Update this with your frontend domain when you deploy it
+CORS(app, origins=['https://letter-squared-psi.vercel.app/'])
 
 def load_word_list():
     with open("word-check.txt") as f:

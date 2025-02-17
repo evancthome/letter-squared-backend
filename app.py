@@ -1,13 +1,21 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from generate import sample, render
+import os
 
 app = Flask(__name__)
-# Update this with your frontend domain when you deploy it
-CORS(app, origins=['https://letter-squared-psi.vercel.app/'])
+# Allow requests from both the development and production domains
+CORS(app, origins=[
+    'http://localhost:3000',  # Local development
+    'http://localhost:5000',
+    'https://letter-squared-psi.vercel.app',  # Production domain
+    'https://letter-squared.vercel.app'  # In case the domain changes
+])
 
 def load_word_list():
-    with open("word-check.txt") as f:
+    # Use absolute path relative to the application directory
+    word_check_path = os.path.join(os.path.dirname(__file__), "word-check.txt")
+    with open(word_check_path) as f:
         return set(word.strip().lower() for word in f)
 
 # Load words once when starting server
@@ -16,7 +24,9 @@ VALID_WORDS = load_word_list()
 @app.route('/generate', methods=['GET'])
 def generate_puzzle():
     try:
-        w1, w2, side_assignments = sample("words.txt", verbose=False)
+        # Use absolute path relative to the application directory
+        words_path = os.path.join(os.path.dirname(__file__), "words.txt")
+        w1, w2, side_assignments = sample(words_path, verbose=False)
         layout = render(side_assignments)
         
         return jsonify({
@@ -36,5 +46,4 @@ def validate_word(word):
     })
 
 if __name__ == '__main__':
-    # Update to listen on all interfaces
     app.run(host='0.0.0.0', port=8080) 

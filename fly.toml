@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for generator on 2025-02-16T13:14:07-05:00
+# fly.toml app configuration file generated for generator on 2025-02-16T14:19:35-05:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -7,16 +7,17 @@ app = 'generator'
 primary_region = 'ewr'
 
 [build]
+  dockerfile = "Dockerfile"
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = 'stop'
+  auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
 
 [[vm]]
-  memory = '512mb'
+  memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1

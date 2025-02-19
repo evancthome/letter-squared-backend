@@ -6,10 +6,7 @@ import os
 app = Flask(__name__)
 # Allow requests from both the development and production domains
 CORS(app, origins=[
-    'http://localhost:3000',  # Local development
-    'http://localhost:5000',
-    'https://letter-squared-psi.vercel.app',  # Production domain
-    'https://letter-squared.vercel.app'  # In case the domain changes
+    'https://letterquared.com'
 ])
 
 def load_word_list():

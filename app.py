@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 # Allow requests from both the development and production domains
 CORS(app, origins=[
-    'https://letterquared.com'
+    'https://www.letterquared.com'
 ])
 
 def load_word_list():
